@@ -1,4 +1,4 @@
-package com.template
+package com.pingpong
 
 import net.corda.client.rpc.CordaRPCClient
 import net.corda.client.rpc.CordaRPCConnection

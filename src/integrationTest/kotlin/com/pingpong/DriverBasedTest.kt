@@ -1,4 +1,4 @@
-package com.template
+package com.pingpong
 
 import net.corda.core.utilities.getOrThrow
 import net.corda.node.services.transactions.SimpleNotaryService
@@ -15,7 +15,7 @@ import kotlin.test.assertFailsWith
 class DriverBasedTest {
     @Test
     fun `run driver test`() {
-        val user = User("user1", "test", permissions = setOf("StartFlow.com.template.Ping"))
+        val user = User("user1", "test", permissions = setOf("StartFlow.com.pingpong.Ping"))
 
         driver(startNodesInProcess = true) {
             val (_, nodeAHandle, _) = listOf(

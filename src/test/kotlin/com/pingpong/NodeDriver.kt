@@ -1,4 +1,4 @@
-package com.template
+package com.pingpong
 
 import net.corda.core.identity.CordaX500Name
 import net.corda.core.utilities.getOrThrow
@@ -22,7 +22,7 @@ import net.corda.testing.driver.driver
  */
 fun main(args: Array<String>) {
     // No permissions required as we are not invoking flows.
-    val user = User("user1", "test", permissions = setOf("StartFlow.com.template.Ping"))
+    val user = User("user1", "test", permissions = setOf("StartFlow.com.pingpong.Ping"))
     driver(isDebug = true) {
         listOf(
                 startNode(providedName = CordaX500Name("Controller", "London", "GB"), advertisedServices = setOf(ServiceInfo(ValidatingNotaryService.type))),

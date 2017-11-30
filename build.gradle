@@ -71,11 +71,6 @@ dependencies {
     cordaRuntime "net.corda:corda-webserver:$corda_release_version"
 
     testCompile "net.corda:corda-node-driver:$corda_release_version"
-
-    // CorDapp dependencies
-    // Specify your CorDapp's dependencies below, including dependent CorDapps.
-    // We've defined Cash as a dependent CorDapp as an example.
-    cordapp project(":cordapp")
 }
 
 task integrationTest(type: Test, dependsOn: []) {
@@ -100,42 +95,28 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         advertisedServices = ["corda.notary.validating"]
         p2pPort 10002
         rpcPort 10003
-        cordapps = [
-                "$project.group:cordapp-contracts-states:$project.version",
-                "$project.group:cordapp:$project.version",
-                "net.corda:corda-finance:$corda_release_version"
-        ]
+        cordapps = []
     }
     node {
         name "O=PartyA,L=London,C=GB"
         advertisedServices = []
         p2pPort 10005
         rpcPort 10006
-        webPort 10007
-        cordapps = [
-                "$project.group:cordapp-contracts-states:$project.version",
-                "$project.group:cordapp:$project.version",
-                "net.corda:corda-finance:$corda_release_version"
-        ]
-        rpcUsers = [[ user: "user1", "password": "test", "permissions": []]]
+        cordapps = []
+        rpcUsers = [[ user: "user1", "password": "test", "permissions": ["StartFlow.com.pingpong.Ping"]]]
     }
     node {
         name "O=PartyB,L=New York,C=US"
         advertisedServices = []
         p2pPort 10008
         rpcPort 10009
-        webPort 10010
-        cordapps = [
-                "$project.group:cordapp-contracts-states:$project.version",
-                "$project.group:cordapp:$project.version",
-                "net.corda:corda-finance:$corda_release_version"
-        ]
-        rpcUsers = [[ user: "user1", "password": "test", "permissions": []]]
+        cordapps = []
+        rpcUsers = [[ user: "user1", "password": "test", "permissions": ["StartFlow.com.pingpong.Ping"]]]
     }
 }
 
-task runTemplateClient(type: JavaExec) {
+task pingPartyB(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    main = 'com.template.ClientKt'
-    args 'localhost:10006'
+    main = 'com.pingpong.ClientKt'
+    args = ['localhost:10006', 'O=PartyB,L=New York,C=US']
 }
