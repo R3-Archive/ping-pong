@@ -14,6 +14,8 @@ val RPC_PASSWORD = "test"
 
 fun main(args: Array<String>) {
     require(args.size == 2) { "Usage: RpcClient <node address> <counterpartyName>" }
+    println(args[0])
+    println(args[1])
     val rpcAddressString = args[0]
     val counterpartyName = args[1]
 
@@ -27,7 +29,7 @@ class RpcClient(rpcAddressString: String) {
         val logger = loggerFor<RpcClient>()
     }
 
-    val rpcConnection: CordaRPCConnection
+    private val rpcConnection: CordaRPCConnection
 
     init {
         rpcConnection = establishRpcConnection(rpcAddressString, RPC_USERNAME, RPC_PASSWORD)

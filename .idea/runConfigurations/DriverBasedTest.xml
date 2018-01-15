@@ -7,7 +7,7 @@
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
-    <module name="cordapp-template-kotlin_integrationTest" />
+    <module name="ping-pong_integrationTest" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <option name="PACKAGE_NAME" value="com.pingpong" />
