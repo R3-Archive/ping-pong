@@ -1,0 +1,10 @@
+:compileKotlin UP-TO-DATE
+:compileJava NO-SOURCE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:pingPartyB
+localhost:10006
+
+
+:pingPartyB FAILED
+3 actionable tasks: 1 executed, 2 up-to-date

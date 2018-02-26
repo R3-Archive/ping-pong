@@ -3,9 +3,9 @@ package com.pingpong
 import net.corda.core.identity.CordaX500Name
 import net.corda.core.utilities.getOrThrow
 import net.corda.node.services.transactions.ValidatingNotaryService
-import net.corda.nodeapi.User
-import net.corda.nodeapi.internal.ServiceInfo
+import net.corda.testing.driver.DriverParameters
 import net.corda.testing.driver.driver
+import net.corda.testing.node.User
 
 /**
  * This file is exclusively for being able to run your nodes through an IDE (as opposed to using deployNodes)
@@ -22,14 +22,11 @@ import net.corda.testing.driver.driver
  */
 fun main(args: Array<String>) {
     // No permissions required as we are not invoking flows.
-    val user = User("user1", "test", permissions = setOf("StartFlow.com.pingpong.Ping"))
-    driver(isDebug = true) {
+    val user = User("user1", "test", permissions = setOf("ALL"))
+    driver(DriverParameters().withIsDebug(true).withWaitForAllNodesToFinish(true)) {
         listOf(
-                startNode(providedName = CordaX500Name("Controller", "London", "GB"), advertisedServices = setOf(ServiceInfo(ValidatingNotaryService.type))),
                 startNode(providedName = CordaX500Name("PartyA", "London", "GB"), rpcUsers = listOf(user)),
                 startNode(providedName = CordaX500Name("PartyB", "New York", "US"), rpcUsers = listOf(user))
         ).forEach { it.getOrThrow() }
-
-        waitForAllNodesToFinish()
     }
 }
