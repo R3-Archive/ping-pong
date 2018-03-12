@@ -16,12 +16,12 @@ class DriverBasedTest {
         val bankB = TestIdentity(CordaX500Name("Bank B", "", "GB"))
         val bankC = TestIdentity(CordaX500Name("Bank C", "", "GB"))
 
-        val user = User("user1", "test", permissions = setOf("StartFlow.com.pingpong.Ping"))
+        val user = User("user1", "test", permissions = setOf("ALL"))
 
         driver(DriverParameters().withStartNodesInProcess(true)) {
             val (_, nodeAHandle, _) = listOf(
                     startNode(providedName = bankA.name, rpcUsers = listOf(user)),
-                    startNode(providedName = bankB.name)
+                    startNode(providedName = bankB.name, rpcUsers = listOf(user))
             ).map { it.getOrThrow() }
 
             val nodeARpcAddress = nodeAHandle.rpcAddress.toString()
