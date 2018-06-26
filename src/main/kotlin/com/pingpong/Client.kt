@@ -21,6 +21,7 @@ fun main(args: Array<String>) {
 
     val rpcClient = RpcClient(rpcAddressString)
     rpcClient.ping(counterpartyName)
+    rpcClient.closeRpcConnection()
 }
 
 /** An example RPC client that connects to a node and performs various example operations. */
@@ -40,6 +41,11 @@ class RpcClient(rpcAddressString: String) {
         val nodeAddress = parse(rpcAddressString)
         val client = CordaRPCClient(nodeAddress)
         return client.start(username, password)
+    }
+
+    /** Closes the [CordaRPCConnection]. */
+    fun closeRpcConnection() {
+        rpcConnection.close()
     }
 
     fun ping(counterpartyName: String) {
